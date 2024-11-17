@@ -24,6 +24,7 @@
             border-top-right-radius: 10px;
             height: 150px;
             object-fit: cover;
+            cursor: pointer;
         }
 
         .card-title {
@@ -58,30 +59,83 @@
             line-height: 1;
         }
 
-        #orderNow {
-            background-color: #28a745;
-            color: white;
-            font-size: 1.2em;
-            border: none;
-            border-radius: 25px;
-            padding: 12px 20px;
+        .btn-submit {
+            border-radius: 0%;
             width: 100%;
             height: 100%;
-            max-width: 350px;
-            margin: 20px auto;
-            display: block;
-            text-align: center;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-            /* Adds shadow for depth */
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
-            /* Smooth transition */
+            padding: 0;
+            font-size: 1.5em;
+            line-height: 1;
         }
 
-        #orderNow:active {
+        .order-btn {
+            margin-top: 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .order-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            /* Ensures the image takes up the full width of the modal */
+            height: 300px;
+            /* Adjust the height as per your design */
+            object-fit: cover;
+            /* Ensures the image scales properly while maintaining its aspect ratio */
+        }
+
+        .modal-content {
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        #uniqueCode {
+            width: 100%;
+            font-size: 1.2em;
+            padding: 10px;
+            text-align: center;
+        }
+
+        #orderForm .btn-submit {
+            width: 100%;
+            /* Make button full width */
+            padding: 12px;
+            /* Add some padding for better height */
+            font-size: 1.2rem;
+            /* Make the text larger */
+            background-color: #28a745;
+            /* Green background color */
+            color: white;
+            /* White text color */
+            border: none;
+            /* Remove the border */
+            border-radius: 5px;
+            /* Rounded corners */
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            /* Smooth transition for hover effects */
+        }
+
+        #orderForm .btn-submit:hover {
             background-color: #218838;
-            /* Darkens on click for a press effect */
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-            /* Reduces shadow on press */
+            /* Darker green when hovered */
+            transform: translateY(-2px);
+            /* Slight upward movement when hovered */
+        }
+
+        #orderForm .btn-submit:focus {
+            outline: none;
+            /* Remove focus outline */
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            /* Blue outline for focus */
         }
     </style>
 </head>
@@ -94,60 +148,94 @@
         <!-- Tomato Quality 1 -->
         <div class="card product-card">
             <img src="https://sproutedgarden.com/wp-content/uploads/2023/03/cherry-tomatoes-6403-top2.jpg"
-                alt="Quality 1 Tomato" class="card-img-top product-image">
+                alt="Quality 1 Tomato" class="card-img-top product-image" data-target="#imageModal" data-toggle="modal"
+                data-images="t1q1.jpg,t1q2.jpg,t1q3.jpg">
             <div class="card-body text-center">
                 <h5 class="card-title">Quality 1 Tomato</h5>
                 <p class="card-text">Premium quality tomatoes.</p>
                 <p class="price">Price: ₹60 per kg</p>
                 <div class="counter-controls">
                     <button class="btn btn-danger decrement">-</button>
-                    <span class="kg-count">0</span> kg
+                    <span class="kg-count">1</span> kg
                     <button class="btn btn-success increment">+</button>
                 </div>
+                <button class="order-btn">Order</button>
             </div>
         </div>
 
         <!-- Tomato Quality 2 -->
         <div class="card product-card">
             <img src="https://hips.hearstapps.com/hmg-prod/images/types-of-tomatoes-grape-tomatoes-1657550917.png?crop=0.668xw:1.00xh;0.180xw,0&resize=980:*"
-                alt="Quality 2 Tomato" class="card-img-top product-image">
+                alt="Quality 2 Tomato" class="card-img-top product-image" data-target="#imageModal" data-toggle="modal"
+                data-images="t1q1.jpg,t1q2.jpg,t1q3.jpg">
             <div class="card-body text-center">
                 <h5 class="card-title">Quality 2 Tomato</h5>
                 <p class="card-text">Good quality tomatoes.</p>
                 <p class="price">Price: ₹50 per kg</p>
                 <div class="counter-controls">
                     <button class="btn btn-danger decrement">-</button>
-                    <span class="kg-count">0</span> kg
+                    <span class="kg-count">1</span> kg
                     <button class="btn btn-success increment">+</button>
+                </div>
+                <button class="order-btn">Order</button>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-body">
+                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner" id="carouselImages"></div>
+                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+                                data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
+                                data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Tomato Quality 3 -->
-        <div class="card product-card">
-            <img src="https://www.mashed.com/img/gallery/types-of-tomatoes-to-buy-and-to-avoid-for-maximum-flavor/buy-roma-tomatoes-1719343189.jpg"
-                alt="Quality 3 Tomato" class="card-img-top product-image">
-            <div class="card-body text-center">
-                <h5 class="card-title">Quality 3 Tomato</h5>
-                <p class="card-text">Standard quality tomatoes.</p>
-                <p class="price">Price: ₹40 per kg</p>
-                <div class="counter-controls">
-                    <button class="btn btn-danger decrement">-</button>
-                    <span class="kg-count">0</span> kg
-                    <button class="btn btn-success increment">+</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Order Button -->
-        <button class="btn btn-primary btn-lg" id="orderNow">Order Now</button>
     </div>
+
+    <!-- Modal for 3-Digit Code -->
+    <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                
+                <div class="modal-body">
+                    <form id="orderForm">
+                        <div class="form-group">
+                            <label for="uniqueCode">Unique 3-Digit Code</label>
+                            <input type="text" class="form-control" id="uniqueCode" maxlength="3" required>
+                            <small id="codeHelp" class="form-text text-muted">Please enter the 3-digit code you
+                                received.</small>
+                        </div>
+                        <div class="container">
+                            <button type="submit" class="btn btn-success btn-submit">Order Now</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function () {
-            // Handle increment and decrement
+            // Increment and Decrement Handlers
             $(".increment").on("click", function () {
                 const countSpan = $(this).siblings(".kg-count");
                 let currentCount = parseInt(countSpan.text());
@@ -157,29 +245,63 @@
             $(".decrement").on("click", function () {
                 const countSpan = $(this).siblings(".kg-count");
                 let currentCount = parseInt(countSpan.text());
-                if (currentCount > 0) {
+                if (currentCount > 1) {
                     countSpan.text(currentCount - 1);
                 }
             });
 
-            // Order Now Button
-            $("#orderNow").on("click", function () {
-                let totalOrder = "";
-                $(".product-card").each(function () {
-                    const productTitle = $(this).find(".card-title").text();
-                    const kgCount = $(this).find(".kg-count").text();
-                    if (parseInt(kgCount) > 0) {
-                        totalOrder += productTitle + ": " + kgCount + " kg\n";
-                    }
+            // Individual Order Button Handler (for opening the order modal)
+            $(".order-btn").on("click", function () {
+                const card = $(this).closest(".product-card");
+                const productTitle = card.find(".card-title").text();
+                const kgCount = card.find(".kg-count").text();
+
+                if (parseInt(kgCount) > 0) {
+                    // Store product details in the modal for confirmation
+                    
+                    $("#orderModal").data("productTitle", productTitle);
+                    $("#orderModal").data("kgCount", kgCount);
+                    $('#orderModal').modal('show');
+                } else {
+                    alert("Please add at least one kg before placing the order.");
+                }
+            });
+
+            // Modal and Carousel Setup for Product Image Click
+            $(".product-image").on("click", function () {
+                const images = $(this).data("images").split(",");
+                const carouselImages = $("#carouselImages");
+                carouselImages.empty();
+
+                images.forEach((img, index) => {
+                    const activeClass = index === 0 ? "active" : "";
+                    carouselImages.append(`
+                <div class="carousel-item ${activeClass}">
+                    <img src="${img}" class="d-block w-100" alt="Product Image ${index + 1}">
+                </div>
+            `);
                 });
 
-                if (totalOrder) {
-                    alert("Your Order:\n" + totalOrder);
+                $("#imageModal").modal("show");
+            });
+
+            // Handle Order Form Submission
+            $("#orderForm").on("submit", function (e) {
+                e.preventDefault(); // Prevent form submission
+                const uniqueCode = $("#uniqueCode").val();
+                const productTitle = $("#orderModal").data("productTitle");
+                const kgCount = $("#orderModal").data("kgCount");
+
+                // Validate the code (make sure it's a 3-digit number)
+                if (/^\d{3}$/.test(uniqueCode)) {
+                    alert(`Order confirmed for ${productTitle}: ${kgCount} kg with code ${uniqueCode}`);
+                    $('#orderModal').modal('hide'); // Close the modal
                 } else {
-                    alert("Please add at least one item to your order.");
+                    alert("Please enter a valid 3-digit code.");
                 }
             });
         });
+
     </script>
 
 </body>
