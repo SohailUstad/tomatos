@@ -137,13 +137,96 @@
             box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
             /* Blue outline for focus */
         }
+
+        #retail {
+            display: none;
+        }
+
+        #wholesale {
+            display: none;
+        }
+    </style>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            /* Space between buttons */
+            padding: 20px;
+        }
+
+        .option-button {
+            width: 300px;
+            height: 300px;
+            /* Square shape */
+            position: relative;
+            cursor: pointer;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .option-button img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .option-button:hover {
+            transform: scale(1.05);
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            /* Semi-transparent overlay */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .overlay span {
+            font-size: 24px;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-align: center;
+        }
     </style>
 </head>
 
 <body>
 
-    <div class="container">
-        <h1 class="text-center my-4">PUF's Tomato Store</h1>
+    <div class="container" id="main-body">
+        <h1 class="text-center my-4">PUF's Veggies</h1>
+        <div class="option-button" onclick="handleNavigation('retail')">
+            <img src="https://carusos.com.au/wp-content/uploads/2020/06/tomatos-small.jpeg" alt="Retail" />
+            <div class="overlay">
+                <span>Retail</span>
+            </div>
+        </div>
+        <div class="option-button" onclick="handleNavigation('wholesale')">
+            <img src="https://img.freepik.com/premium-photo/tomatoes-plastic-crates-isolated-white_708636-572.jpg"
+                alt="Wholesale" />
+            <div class="overlay">
+                <span>Wholesale</span>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="container" id="retail">
+        <h1 class="text-center my-4">PUF's Veggies (Retail)</h1>
 
         <!-- Tomato Quality 1 -->
         <div class="card product-card">
@@ -180,39 +263,78 @@
                 <button class="order-btn">Order</button>
             </div>
         </div>
+    </div>
 
-        <!-- Modal -->
-        <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                <div class="modal-content">
+    <div class="container" id="wholesale">
+        <h1 class="text-center my-4">PUF's Veggies (Wholesale)</h1>
 
-                    <div class="modal-body">
-                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                            <div class="carousel-inner" id="carouselImages"></div>
-                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
-                                data-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
-                                data-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </div>
+        <!-- Tomato Quality 1 -->
+        <div class="card product-card">
+            <img src="https://sproutedgarden.com/wp-content/uploads/2023/03/cherry-tomatoes-6403-top2.jpg"
+                alt="Quality 1 Tomato" class="card-img-top product-image" data-target="#imageModal" data-toggle="modal"
+                data-images="t1q1.jpg,t1q2.jpg,t1q3.jpg">
+            <div class="card-body text-center">
+                <p class="card-text">Premium quality tomatoes.</p>
+                <p class="price">Price: ₹1000 per Crate</p>
+                <div class="counter-controls">
+                    <button class="btn btn-danger decrement">-</button>
+                    <span class="kg-count">1</span> Crate
+                    <button class="btn btn-success increment">+</button>
+                </div>
+                <button class="order-btn">Order</button>
+            </div>
+        </div>
+
+        <!-- Tomato Quality 2 -->
+        <div class="card product-card">
+            <img src="https://hips.hearstapps.com/hmg-prod/images/types-of-tomatoes-grape-tomatoes-1657550917.png?crop=0.668xw:1.00xh;0.180xw,0&resize=980:*"
+                alt="Quality 2 Tomato" class="card-img-top product-image" data-target="#imageModal" data-toggle="modal"
+                data-images="t1q1.jpg,t1q2.jpg,t1q3.jpg">
+            <div class="card-body text-center">
+                <p class="card-text">Good quality tomatoes.</p>
+                <p class="price">Price: ₹800 per Crate</p>
+                <div class="counter-controls">
+                    <button class="btn btn-danger decrement">-</button>
+                    <span class="kg-count">1</span> Crate
+                    <button class="btn btn-success increment">+</button>
+                </div>
+                <button class="order-btn">Order</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner" id="carouselImages"></div>
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+                            data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
+                            data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
+
+
 
     <!-- Modal for 3-Digit Code -->
     <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                
+
                 <div class="modal-body">
                     <form id="orderForm">
                         <div class="form-group">
@@ -258,7 +380,7 @@
 
                 if (parseInt(kgCount) > 0) {
                     // Store product details in the modal for confirmation
-                    
+
                     $("#orderModal").data("productTitle", productTitle);
                     $("#orderModal").data("kgCount", kgCount);
                     $('#orderModal').modal('show');
@@ -300,6 +422,35 @@
                     alert("Please enter a valid 3-digit code.");
                 }
             });
+        });
+
+        function handleNavigation(section) {
+            // Update the URL without reloading the page
+            history.pushState({ section }, '', `#${section}`);
+            updateView(section);
+        }
+
+        // Update the view based on the current section
+        function updateView(section) {
+            const sections = ['retail', 'wholesale'];
+            sections.forEach(id => {
+                document.getElementById(id).style.display = id === section ? 'block' : 'none';
+            });
+
+            // Hide the main body when showing a section
+            document.getElementById('main-body').style.display = section ? 'none' : 'flex';
+        }
+
+        // Listen to the back/forward button navigation
+        window.addEventListener('popstate', event => {
+            const section = event.state ? event.state.section : '';
+            updateView(section);
+        });
+
+        // Initial load - handle the case when the page is loaded with a hash
+        window.addEventListener('load', () => {
+            const section = location.hash.replace('#', '') || '';
+            updateView(section);
         });
 
     </script>
